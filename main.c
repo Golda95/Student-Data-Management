@@ -5,7 +5,7 @@
 #define MAX 500
 
 int main() {
-	int choice, smenu, amenu, edit;
+	int choice, smenu, amenu, edit, rno;
 	char sp[100], ap[100], fn[100];
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
 		"\t\tSTUDENT DATA MANAGEMENT\n"
@@ -14,18 +14,24 @@ int main() {
 		"2.ADMINISTRATOR\n"
 		"Enter your choice\n");
 		scanf("%d", &choice);
+		while(1) {
 		switch(choice) {
 			case 1: {/* student login*/
 				printf("Enter password\n");
 				scanf("%s", sp);
-				if(strcmp(sp, "student") == 0)
+				if(strcmp(sp, "student") == 0) {
 					smenu = studentmenu();
-				
+					printf("Enter roll number\n");
+					scanf("%d", &rno);
+					printf("Enter file name\n");
+					scanf("%s", fn);
+				}
 				else
 					printf("Invalid password. Try again\n");
 				switch(smenu) {
 					case 1: {/*view scores*/
-						viewscore();
+					
+						sviewscore(rno, fn);
 						break;
 					}
 					case 2: {/*view result*/
@@ -39,17 +45,6 @@ int main() {
 				}
 				break;
 			}
-
-
-
-
-/*Just to keep track
-*/
-
-
-
-
-
 
 
 			case 2: {/*admin login*/
@@ -76,21 +71,33 @@ int main() {
 							"6. Edit scores\n"
 							"Enter your choice\n");
 						scanf("%d", &edit);
+						printf("Enter roll number\n");
+						scanf("%d", &rno);
 						switch(edit) {
 							case 1:{/*Edit first name*/
-								editfirstname(
-						break;
-					}
-					case 3: {/*Delete record*/
-						break;
-					}
-					case 4: {/*View individual record*/
-						break;
-					}
-					case 5: {/*View all records*/
-						break;
-					}
-					case 6: {/*Sort records*/
+								editfirstname(rno, fn);
+								break;
+							}
+							case 3: {/*Delete record*/
+								editlastname(rno, fn);
+								break;
+							}
+							case 4: {/*View individual record*/
+								viewrecord(rno, fn);
+								break;
+							}
+							case 5: {/*View all records*/
+								viewall(fn);
+								break;
+							}
+							case 6: {/*Sort records*/
+								break;
+							}
+							default: {
+								printf("Invalid choice. Try againcheck\n");
+								break;
+							}
+						}
 						break;
 					}
 					default: {
@@ -100,10 +107,18 @@ int main() {
 				}
 				break;
 			}
-			default: {
-				printf("Invalid choice. Try again\n");
+			default:{
+				printf("Invalid entry\n");
 				return 0;
 			}
 		}
 	return 0;
 }
+}
+
+
+
+
+
+
+
